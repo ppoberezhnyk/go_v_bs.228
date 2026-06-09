@@ -5,7 +5,7 @@
     <title>Питання для тебе</title>
     <style>
         body {
-            background: #ffecb3;
+            background-color: #fce4ec;
             font-family: 'Arial', sans-serif;
             text-align: center;
             display: flex;
@@ -17,50 +17,69 @@
             overflow: hidden;
         }
 
-        h1 { color: #5d4037; }
+        h1 { color: #880e4f; font-size: 2.5em; }
 
-        .cats { font-size: 80px; margin-bottom: 20px; }
-
-        .container { position: relative; width: 100%; height: 150px; }
+        .container { position: relative; width: 100%; height: 100px; margin: 20px 0; }
 
         button {
             padding: 15px 30px;
             font-size: 20px;
-            border-radius: 50px;
+            border-radius: 20px;
             border: none;
             cursor: pointer;
             position: absolute;
-            transition: all 0.1s ease; /* швидка реакція */
+            transition: all 0.1s ease;
         }
 
-        #yesBtn { background: #81c784; left: 35%; }
-        #noBtn { background: #e57373; left: 55%; }
+        #yesBtn { background-color: #81c784; left: 40%; }
+        #noBtn { background-color: #e57373; left: 55%; }
+
+        .cats { font-size: 60px; margin-top: 20px; }
+
+        #timer { font-size: 24px; color: #ad1457; margin-top: 30px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="cats">🐱 🐱</div>
-    <h1>Ти сьогодні вільний?</h1>
+    <h1>Ти подзвониш мені о 14:00?</h1>
     
     <div class="container">
-        <button id="yesBtn" onclick="sayYes()">Так</button>
+        <button id="yesBtn" onclick="alert('Супер! Чекаю на дзвінок о 14:00!')">Так</button>
         <button id="noBtn" onmouseover="moveButton()" onmousedown="moveButton()">Ні</button>
     </div>
+
+    <!-- Котики під кнопками -->
+    <div class="cats">🐱 🐱</div>
+
+    <!-- Таймер -->
+    <div id="timer"></div>
 
     <script>
         function moveButton() {
             const btn = document.getElementById('noBtn');
-            // Випадкові координати
-            const x = Math.random() * (window.innerWidth - 150);
+            const x = Math.random() * (window.innerWidth - 100);
             const y = Math.random() * (window.innerHeight - 100);
-            
             btn.style.left = x + 'px';
             btn.style.top = y + 'px';
         }
 
-        function sayYes() {
-            alert('Добре! Чекаю на твій дзвінок о 14:00!');
+        function updateTimer() {
+            const now = new Date();
+            const target = new Date();
+            target.setHours(14, 0, 0, 0);
+
+            if (now >= target) {
+                document.getElementById('timer').innerHTML = "Час дзвонити! 📞";
+            } else {
+                const diff = target - now;
+                const h = Math.floor(diff / 3600000);
+                const m = Math.floor((diff % 3600000) / 60000);
+                const s = Math.floor((diff % 60000) / 1000);
+                document.getElementById('timer').innerHTML = До дзвінка: ${h}г ${m}хв ${s}сек;
+            }
         }
+        setInterval(updateTimer, 1000);
+        updateTimer();
     </script>
 </body>
 </html>

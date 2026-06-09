@@ -2,15 +2,11 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brawl Stars Challenge</title>
+    <title>Питання для тебе</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
-        
         body {
-            background: #1a1a2e;
-            color: white;
-            font-family: 'Fredoka One', cursive;
+            background: #ffecb3;
+            font-family: 'Arial', sans-serif;
             text-align: center;
             display: flex;
             flex-direction: column;
@@ -21,68 +17,50 @@
             overflow: hidden;
         }
 
-        h1 { font-size: 3rem; text-shadow: 2px 2px #ff0055; }
+        h1 { color: #5d4037; }
 
-        .container { position: relative; width: 100%; height: 200px; }
+        .cats { font-size: 80px; margin-bottom: 20px; }
+
+        .container { position: relative; width: 100%; height: 150px; }
 
         button {
-            padding: 15px 40px;
+            padding: 15px 30px;
             font-size: 20px;
+            border-radius: 50px;
             border: none;
-            border-radius: 20px;
             cursor: pointer;
             position: absolute;
-            font-family: inherit;
-            transition: 0.3s;
+            transition: all 0.1s ease; /* швидка реакція */
         }
 
-        #yesBtn { background: #4caf50; color: white; left: 30%; top: 50%; }
-        #noBtn { background: #f44336; color: white; left: 60%; top: 50%; }
-
-        #timer { margin-top: 50px; font-size: 1.5rem; color: #ffeb3b; }
-        
-        .hidden { display: none; }
+        #yesBtn { background: #81c784; left: 35%; }
+        #noBtn { background: #e57373; left: 55%; }
     </style>
 </head>
 <body>
 
-    <h1>Йдеш сьогодні в Brawl Stars?</h1>
+    <div class="cats">🐱 🐱</div>
+    <h1>Ти сьогодні вільний?</h1>
+    
     <div class="container">
-        <button id="yesBtn" onclick="alert('Чудово! Заходь у лобі!')">Так!</button>
-        <button id="noBtn" onmouseover="moveNo()">Ні</button>
+        <button id="yesBtn" onclick="sayYes()">Так</button>
+        <button id="noBtn" onmouseover="moveButton()" onmousedown="moveButton()">Ні</button>
     </div>
 
-    <div id="timer"></div>
-
     <script>
-        function moveNo() {
+        function moveButton() {
             const btn = document.getElementById('noBtn');
-            const x = Math.random() * (window.innerWidth - 100);
+            // Випадкові координати
+            const x = Math.random() * (window.innerWidth - 150);
             const y = Math.random() * (window.innerHeight - 100);
+            
             btn.style.left = x + 'px';
             btn.style.top = y + 'px';
         }
 
-        function updateTimer() {
-            const now = new Date();
-            const target = new Date();
-            target.setHours(14, 0, 0, 0);
-
-            if (now > target) {
-                document.getElementById('timer').innerHTML = "Час гри настав! 🎮";
-                return;
-            }
-
-            const diff = target - now;
-            const h = Math.floor(diff / 3600000);
-            const m = Math.floor((diff % 3600000) / 60000);
-            const s = Math.floor((diff % 60000) / 1000);
-            
-            document.getElementById('timer').innerHTML = 
-                До початку: ${h}г ${m}хв ${s}сек;
+        function sayYes() {
+            alert('Добре! Чекаю на твій дзвінок о 14:00!');
         }
-
-        setInterval(updateTimer, 1000);
     </script>
 </body>
 </html>
